@@ -14,8 +14,8 @@ public class TestAgenda {
 
 	public static void main(String[] args) {
 		AgendaContactos agenda = new AgendaContactos();
-
-		int errores = AgendaIO.importar(agenda);
+		String aux = null;
+		int errores = AgendaIO.importar(agenda, aux);
 		separador();
 		System.out.println(errores + " líneas erróneas");
 
