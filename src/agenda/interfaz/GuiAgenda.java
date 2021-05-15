@@ -1,5 +1,8 @@
 package agenda.interfaz;
 
+import java.io.File;
+
+import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,6 +20,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class GuiAgenda extends Application {
@@ -100,6 +105,7 @@ public class GuiAgenda extends Application {
 		Menu menu1 = new Menu("Archivo");
 		itemImportar = new MenuItem("Importar agenda");
 		itemImportar.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+		itemImportar.setOnAction(e -> importarAgenda());
 		
 		itemExportarPersonales = new MenuItem("Exportar Personales");
 		itemExportarPersonales.setDisable(true);
@@ -131,8 +137,21 @@ public class GuiAgenda extends Application {
 	}
 
 	private void importarAgenda() {
-		// a completar
-
+		int errores = 0;
+		FileChooser selector = new FileChooser();
+		selector.setTitle("Abrir archivo csv");
+		selector.setInitialDirectory(new File("."));
+		selector.getExtensionFilters().addAll(new ExtensionFilter("csv", "*.csv"));
+		File f = selector.showOpenDialog(null);
+		if (f != null) {
+			String nombre = f.getName();
+			errores = AgendaIO.importar(agenda, nombre);
+		}
+		
+		areaTexto.setText("Importada agenda\n\nLíneas Erroneas: " + errores);
+		
+		itemExportarPersonales.setDisable(false);
+		itemImportar.setDisable(true);
 	}
 
 	private void exportarPersonales() {

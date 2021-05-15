@@ -28,12 +28,12 @@ import agenda.modelo.*;
  */
 public class AgendaIO {
 
-	public static int importar(AgendaContactos agenda) {
+	public static int importar(AgendaContactos agenda, String nombre) {
 
         int errores = 0;
         Scanner entrada = null;
         try {
-        	entrada = new Scanner(AgendaIO.class.getClassLoader().getResourceAsStream("agenda.csv"));
+        	entrada = new Scanner(AgendaIO.class.getClassLoader().getResourceAsStream(nombre));
             while (entrada.hasNextLine()) {
                 try {
                     Contacto nuevo = parsearLinea(entrada.nextLine());
