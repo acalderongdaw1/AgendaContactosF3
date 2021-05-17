@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -175,6 +176,7 @@ public class GuiAgenda extends Application {
 		itemExportarPersonales = new MenuItem("Exportar Personales");
 		itemExportarPersonales.setDisable(true);
 		itemExportarPersonales.setAccelerator(KeyCombination.keyCombination("Ctrl+E"));
+		itemExportarPersonales.setOnAction(e -> exportarPersonales());
 		
 		itemSalir = new MenuItem("Salir");
 		itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
@@ -194,6 +196,7 @@ public class GuiAgenda extends Application {
 		Menu menu3 = new Menu("Help");
 		itemAbout = new MenuItem("About");
 		itemAbout.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
+		itemAbout.setOnAction(e -> about());
 		
 		menu3.getItems().add(itemAbout);
 		
@@ -222,7 +225,17 @@ public class GuiAgenda extends Application {
 	}
 
 	private void exportarPersonales() {
-		// a completar
+		FileChooser selector = new FileChooser();
+		selector.setTitle("Exportar contactos personales por relación");
+		
+		
+		selector.setInitialDirectory(new File("."));
+		selector.getExtensionFilters().addAll(new ExtensionFilter("txt","*.txt"));
+		File f = selector.showSaveDialog(null);
+		if (f != null) {
+			AgendaIO.exportarPersonales(agenda, f.getAbsolutePath());
+			areaTexto.setText("Exportados datos personales");
+		}
 
 	}
 
@@ -267,7 +280,11 @@ public class GuiAgenda extends Application {
 	}
 
 	private void about() {
-		// a completar
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Mensaje informativo al usuario");
+		alert.setHeaderText(null);
+		alert.setContentText("Mi agenda de\ncontactos");
+		alert.showAndWait();
 
 	}
 
