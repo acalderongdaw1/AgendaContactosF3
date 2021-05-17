@@ -19,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Menu;
@@ -349,10 +350,13 @@ public class GuiAgenda extends Application {
 		alert.setTitle("Mensaje informativo al usuario");
 		alert.setHeaderText(null);
 		alert.setContentText("Mi agenda de\ncontactos");
-		alert.showAndWait();
 
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+		
+		Optional<ButtonType> resul = alert.showAndWait();
+		if(resul.get() == ButtonType.OK)
+			alert.close();
 	}
 
 	private void clear() {
