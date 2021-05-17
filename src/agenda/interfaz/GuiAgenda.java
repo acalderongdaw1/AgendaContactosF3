@@ -28,6 +28,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
@@ -129,7 +130,8 @@ public class GuiAgenda extends Application {
 		btnPersonalesEnLetra = new Button("Contactos personales en letra");
 		btnPersonalesEnLetra.setPrefWidth(250);
 		btnPersonalesEnLetra.getStyleClass().add("botones");
-
+		btnPersonalesEnLetra.setOnAction(e -> contactosPersonalesEnLetra());
+		
 		btnPersonalesOrdenadosPorFecha = new Button("Contactos Personales\nordenaos por fecha");
 		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
@@ -272,7 +274,21 @@ public class GuiAgenda extends Application {
 
 	private void contactosPersonalesEnLetra() {
 		clear();
-		// a completar
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		}
+		else {
+			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			dialog.setTitle("Selector de letra");
+			dialog.setHeaderText(null);
+			dialog.setContentText("Elija letra:");
+			Optional<Character> resul = dialog.showAndWait();
+			if(resul.isPresent())
+				contactosEnLetra(resul.get());
+			else 
+				dialog.close();
+			
+		}		
 
 	}
 
