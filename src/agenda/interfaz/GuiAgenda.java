@@ -125,7 +125,8 @@ public class GuiAgenda extends Application {
 		btnListar.setPrefWidth(250);
 		btnListar.getStyleClass().add("botones");
 		VBox.setMargin(btnListar, new Insets(0,0,40,0));
-
+		btnListar.setOnAction(e -> listar());
+		
 		btnPersonalesEnLetra = new Button("Contactos personales en letra");
 		btnPersonalesEnLetra.setPrefWidth(250);
 		btnPersonalesEnLetra.getStyleClass().add("botones");
@@ -259,7 +260,17 @@ public class GuiAgenda extends Application {
 	private void listar() {
 		clear();
 		// a completar
-
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		}
+		else {
+			if(rbtListarTodo.isSelected()) {
+				areaTexto.setText(agenda.toString());
+			}
+			else if(rbtListarSoloNumero.isSelected()) {
+				areaTexto.setText("Total de contactos: " + agenda.totalContactos());
+			}
+		}
 	}
 
 	private void personalesOrdenadosPorFecha() {
@@ -271,7 +282,7 @@ public class GuiAgenda extends Application {
 	private void contactosPersonalesEnLetra() {
 		clear();
 		// a completar
-
+		
 	}
 
 	private void contactosEnLetra(char letra) {
