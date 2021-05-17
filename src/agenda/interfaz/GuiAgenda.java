@@ -132,6 +132,7 @@ public class GuiAgenda extends Application {
 		itemExportarPersonales = new MenuItem("Exportar Personales");
 		itemExportarPersonales.setDisable(true);
 		itemExportarPersonales.setAccelerator(KeyCombination.keyCombination("Ctrl+E"));
+		itemExportarPersonales.setOnAction(e -> exportarPersonales());
 		
 		itemSalir = new MenuItem("Salir");
 		itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
@@ -177,7 +178,17 @@ public class GuiAgenda extends Application {
 	}
 
 	private void exportarPersonales() {
-		// a completar
+		FileChooser selector = new FileChooser();
+		selector.setTitle("Exportar contactos personales por relación");
+		
+		
+		selector.setInitialDirectory(new File("."));
+		selector.getExtensionFilters().addAll(new ExtensionFilter("txt","*.txt"));
+		File f = selector.showSaveDialog(null);
+		if (f != null) {
+			AgendaIO.exportarPersonales(agenda, f.getAbsolutePath());
+			areaTexto.setText("Exportados datos personales");
+		}
 
 	}
 
