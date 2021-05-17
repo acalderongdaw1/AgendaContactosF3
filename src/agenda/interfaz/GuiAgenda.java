@@ -3,8 +3,6 @@ package agenda.interfaz;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -76,7 +74,6 @@ public class GuiAgenda extends Application {
 		scene.getStylesheets().add(getClass().getResource("/application.css")
 		                    .toExternalForm());
 		stage.show();
-
 	}
 
 	private BorderPane crearGui() {
@@ -155,7 +152,6 @@ public class GuiAgenda extends Application {
 	}
 
 	private GridPane crearPanelLetras() {
-
 		GridPane panel = new GridPane();
 		panel.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 		panel.setPadding(new Insets(10));
@@ -184,7 +180,6 @@ public class GuiAgenda extends Application {
 	}
 
 	private MenuBar crearBarraMenu() {
-		// a completar
 		MenuBar barra = new MenuBar();
 		
 		Menu menu1 = new Menu("Archivo");
@@ -264,7 +259,6 @@ public class GuiAgenda extends Application {
 	 */
 	private void listar() {
 		clear();
-		// a completar
 		if(agenda.totalContactos() == 0) {
 			areaTexto.setText("Importe antes la agenda");
 		}
@@ -295,38 +289,49 @@ public class GuiAgenda extends Application {
 			dialog.setHeaderText(null);
 			dialog.setContentText("Elija letra:");
 			Optional<Character> resul = dialog.showAndWait();
-			if(resul.isPresent())
-				contactosEnLetra(resul.get());
-			else 
+			if(resul.isPresent()) {
+				List<Personal> aux = agenda.personalesEnLetra(resul.get());
+				if(!agenda.estaLetra(resul.get())) {
+					areaTexto.setText("La letra " + resul.get() + " no está en la agenda");
+				}
+				else {
+					areaTexto.setText("Contactos personales en la letra " + resul.get() + " (" + aux.size() + " contacto/s)\n\n");
+					for(Personal p : aux) {
+						areaTexto.appendText(p.toString() + "\n");
+					}
+				}
+				
+			}
+			else {
 				dialog.close();
-			
+			}
 		}		
 
 	}
 
 	private void contactosEnLetra(char letra) {
 		clear();
-		// a completar
 		if(agenda.totalContactos() == 0) {
-			areaTexto.setText("No se ha cargado la agenda");
+			areaTexto.setText("Importe antes la agenda");
 		}
-		else if(agenda.estaLetra(letra)){
-			Set<Contacto> aux = agenda.contactosEnLetra(letra);
+		else {
 			areaTexto.setText("Contactos en la letra " + letra + "\n\n\n");
-			for(Contacto c : aux) {
-				areaTexto.appendText(c.toString() + "\n");
+			if(agenda.estaLetra(letra)){
+				Set<Contacto> aux = agenda.contactosEnLetra(letra);
+				for(Contacto c : aux) {
+					areaTexto.appendText(c.toString() + "\n");
+				}
+			}else {
+			areaTexto.setText("No hay contactos");
 			}
-		}else {
-			areaTexto.setText("No hay contactos con esa letra");
 		}
 		
 	}
 
 	private void felicitar() {
 		clear();
-		// a completar
 		if(agenda.totalContactos() == 0) {
-			areaTexto.setText("No se ha cargado la agenda");
+			areaTexto.setText("Importe antes la agenda");
 		}
 		else {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
@@ -334,7 +339,7 @@ public class GuiAgenda extends Application {
 			List<Personal> aux = agenda.felicitar();
 			areaTexto.setText("Hoy es " + dtf.format(hoy) + "\n\n");
 			if(aux.isEmpty()) {
-				areaTexto.appendText("No hay nadie a quien feliciar");
+				areaTexto.appendText("No hay nadie a quien felicitar");
 			}
 			else {
 				areaTexto.appendText("Hay que feliciar a\n\n");
