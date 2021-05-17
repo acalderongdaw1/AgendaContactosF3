@@ -103,7 +103,6 @@ public class AgendaIO {
 		try {
 			fsalida = new PrintWriter(new BufferedWriter(new FileWriter(ruta)));
 			fsalida.println(escribirBonito(agenda, ruta));
-			System.out.println("Exportados personales agrupados por relación");
 			
 		} catch (IOException e) {
 			

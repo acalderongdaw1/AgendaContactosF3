@@ -62,6 +62,17 @@ public class AgendaContactos {
 		}
 		return contactos;
 	}
+	
+	/**
+	 * Metodo para comprobar si esta o no una letra en la agenda
+	 */
+	public boolean estaLetra(char letra) {
+		if(agenda.containsKey(letra)) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Devuelve el número total de contactos en la agenda.	
 	 * @return int

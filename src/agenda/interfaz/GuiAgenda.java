@@ -1,15 +1,25 @@
 package agenda.interfaz;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
+import agenda.modelo.Contacto;
+import agenda.modelo.Personal;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -146,9 +156,11 @@ public class GuiAgenda extends Application {
 		panel.setHgap(5);
 		panel.setVgap(5);
 		int posicion = 0;
-		String[] letras = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		Character[] letras = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 		for (int i=0;i<letras.length;i++) {
-			Button letra = new Button(letras[i]);
+			char temp = letras[i];
+			Button letra = new Button(letras[i].toString());
+			letra.setOnAction(e -> contactosEnLetra(temp));
 			letra.setId("botonletra");
 			letra.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 			GridPane.setHgrow(letra, Priority.ALWAYS);
@@ -191,6 +203,7 @@ public class GuiAgenda extends Application {
 		
 		itemFelicitar = new MenuItem("Felicitar");
 		itemFelicitar.setAccelerator(KeyCombination.keyCombination("Ctrl+F"));
+		itemFelicitar.setOnAction(e -> felicitar());
 		
 		menu2.getItems().addAll(itemBuscar, itemFelicitar);
 		
@@ -264,11 +277,42 @@ public class GuiAgenda extends Application {
 	private void contactosEnLetra(char letra) {
 		clear();
 		// a completar
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("No se ha cargado la agenda");
+		}
+		else if(agenda.estaLetra(letra)){
+			Set<Contacto> aux = agenda.contactosEnLetra(letra);
+			areaTexto.setText("Contactos en la letra " + letra + "\n\n\n");
+			for(Contacto c : aux) {
+				areaTexto.appendText(c.toString() + "\n");
+			}
+		}else {
+			areaTexto.setText("No hay contactos con esa letra");
+		}
+		
 	}
 
 	private void felicitar() {
 		clear();
 		// a completar
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("No se ha cargado la agenda");
+		}
+		else {
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+			LocalDate hoy = LocalDate.now();
+			List<Personal> aux = agenda.felicitar();
+			areaTexto.setText("Hoy es " + dtf.format(hoy) + "\n\n");
+			if(aux.isEmpty()) {
+				areaTexto.appendText("No hay nadie a quien feliciar");
+			}
+			else {
+				areaTexto.appendText("Hay que feliciar a\n\n");
+				for(Personal p : aux) {
+					areaTexto.appendText(p.toString() + "\n");
+				}
+			}
+		}
 
 	}
 
