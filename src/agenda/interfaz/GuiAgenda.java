@@ -19,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Menu;
@@ -126,20 +127,22 @@ public class GuiAgenda extends Application {
 		btnListar.getStyleClass().add("botones");
 		VBox.setMargin(btnListar, new Insets(0,0,40,0));
 		btnListar.setOnAction(e -> listar());
-		
+
 		btnPersonalesEnLetra = new Button("Contactos personales en letra");
 		btnPersonalesEnLetra.setPrefWidth(250);
 		btnPersonalesEnLetra.getStyleClass().add("botones");
-
+		btnPersonalesEnLetra.setOnAction(e -> contactosPersonalesEnLetra());
+		
 		btnPersonalesOrdenadosPorFecha = new Button("Contactos Personales\nordenaos por fecha");
 		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
+		btnPersonalesOrdenadosPorFecha.setOnAction(e -> personalesOrdenadosPorFecha());
 
 		btnClear = new Button("Clear");
 		btnClear.setPrefWidth(250);
 		btnClear.getStyleClass().add("botones");
 		btnClear.setOnAction(e -> clear());
-		VBox.setMargin(btnClear, new Insets(40,0,0,0));
+		VBox.setMargin(btnClear, new Insets(40,0,0,0));;
 
 		btnSalir= new Button("Salir");
 		btnSalir.setPrefWidth(250);  
@@ -152,7 +155,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private GridPane crearPanelLetras() {
-		// a completar
+
 		GridPane panel = new GridPane();
 		panel.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 		panel.setPadding(new Insets(10));
@@ -283,8 +286,22 @@ public class GuiAgenda extends Application {
 
 	private void contactosPersonalesEnLetra() {
 		clear();
-		// a completar
-		
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		}
+		else {
+			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			dialog.setTitle("Selector de letra");
+			dialog.setHeaderText(null);
+			dialog.setContentText("Elija letra:");
+			Optional<Character> resul = dialog.showAndWait();
+			if(resul.isPresent())
+				contactosEnLetra(resul.get());
+			else 
+				dialog.close();
+			
+		}		
+
 	}
 
 	private void contactosEnLetra(char letra) {
@@ -342,10 +359,13 @@ public class GuiAgenda extends Application {
 		alert.setTitle("Mensaje informativo al usuario");
 		alert.setHeaderText(null);
 		alert.setContentText("Mi agenda de\ncontactos");
-		alert.showAndWait();
 
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+		
+		Optional<ButtonType> resul = alert.showAndWait();
+		if(resul.get() == ButtonType.OK)
+			alert.close();
 	}
 
 	private void clear() {
