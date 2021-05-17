@@ -29,7 +29,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
@@ -266,7 +265,17 @@ public class GuiAgenda extends Application {
 	private void listar() {
 		clear();
 		// a completar
-
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		}
+		else {
+			if(rbtListarTodo.isSelected()) {
+				areaTexto.setText(agenda.toString());
+			}
+			else if(rbtListarSoloNumero.isSelected()) {
+				areaTexto.setText("Total de contactos: " + agenda.totalContactos());
+			}
+		}
 	}
 
 	private void personalesOrdenadosPorFecha() {
