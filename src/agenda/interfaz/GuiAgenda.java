@@ -137,11 +137,13 @@ public class GuiAgenda extends Application {
 		btnClear = new Button("Clear");
 		btnClear.setPrefWidth(250);
 		btnClear.getStyleClass().add("botones");
+		btnClear.setOnAction(e -> clear());
 		VBox.setMargin(btnClear, new Insets(40,0,0,0));
 
 		btnSalir= new Button("Salir");
 		btnSalir.setPrefWidth(250);  
 		btnSalir.getStyleClass().add("botones");
+		btnSalir.setOnAction(e -> salir());
 
 		panel.getChildren().addAll(txtBuscar, rbtListarTodo, rbtListarSoloNumero, btnListar, btnPersonalesEnLetra, btnPersonalesOrdenadosPorFecha, btnClear, btnSalir);
 
