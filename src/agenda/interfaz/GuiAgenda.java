@@ -113,6 +113,7 @@ public class GuiAgenda extends Application {
 		
 		itemSalir = new MenuItem("Salir");
 		itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+		itemSalir.setOnAction(e -> salir());
 		
 		menu1.getItems().addAll(itemImportar, itemExportarPersonales, new SeparatorMenuItem(), itemSalir);
 		
@@ -146,12 +147,13 @@ public class GuiAgenda extends Application {
 		if (f != null) {
 			String nombre = f.getName();
 			errores = AgendaIO.importar(agenda, nombre);
+			areaTexto.setText("Importada agenda\n\nLíneas Erroneas: " + errores);
+			
+			itemExportarPersonales.setDisable(false);
+			itemImportar.setDisable(true);
 		}
 		
-		areaTexto.setText("Importada agenda\n\nLíneas Erroneas: " + errores);
 		
-		itemExportarPersonales.setDisable(false);
-		itemImportar.setDisable(true);
 	}
 
 	private void exportarPersonales() {
