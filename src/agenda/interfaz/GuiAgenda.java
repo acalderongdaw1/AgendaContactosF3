@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -151,6 +152,7 @@ public class GuiAgenda extends Application {
 		Menu menu3 = new Menu("Help");
 		itemAbout = new MenuItem("About");
 		itemAbout.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
+		itemAbout.setOnAction(e -> about());
 		
 		menu3.getItems().add(itemAbout);
 		
@@ -233,7 +235,11 @@ public class GuiAgenda extends Application {
 	}
 
 	private void about() {
-		// a completar
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Mensaje informativo al usuario");
+		alert.setHeaderText(null);
+		alert.setContentText("Mi agenda de\ncontactos");
+		alert.showAndWait();
 
 	}
 
