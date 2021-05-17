@@ -113,7 +113,7 @@ public class GuiAgenda extends Application {
 			}
 			else{
 				panel.add(letra, posicion, 1);
-				++posicion;
+				posicion++;
 			}
 			
 		}
