@@ -287,9 +287,8 @@ public class GuiAgenda extends Application {
 		alert.setContentText("Mi agenda de\ncontactos");
 		alert.showAndWait();
 
-		/*DialogPane dialogPane = alert.getDialogPane();
-		dialogPane.getStylesheets().add(getClass().
-		getResource("/application.css").toExternalForm());*/
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 	}
 
 	private void clear() {
