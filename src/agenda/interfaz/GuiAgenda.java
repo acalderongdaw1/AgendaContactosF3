@@ -20,6 +20,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -68,6 +69,7 @@ public class GuiAgenda extends Application {
 	private BorderPane crearGui() {
 		BorderPane panel = new BorderPane();
 		panel.setTop(crearBarraMenu());
+		panel.setCenter(crearPanelBotones());
 		panel.setCenter(crearPanelPrincipal());
 		return panel;
 	}
@@ -137,7 +139,27 @@ public class GuiAgenda extends Application {
 	private GridPane crearPanelLetras() {
 		// a completar
 		GridPane panel = new GridPane();
-
+		panel.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+		panel.setPadding(new Insets(10));
+		panel.setHgap(5);
+		panel.setVgap(5);
+		int posicion = 0;
+		String[] letras = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		for (int i=0;i<letras.length;i++) {
+			Button letra = new Button(letras[i]);
+			letra.setId("botonletra");
+			letra.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+			GridPane.setHgrow(letra, Priority.ALWAYS);
+			GridPane.setVgrow(letra, Priority.ALWAYS);
+			if(i < 14) {
+				panel.add(letra, i, 0);
+			}
+			else{
+				panel.add(letra, posicion, 1);
+				posicion++;
+			}
+			
+		}
 		return panel;
 	}
 
