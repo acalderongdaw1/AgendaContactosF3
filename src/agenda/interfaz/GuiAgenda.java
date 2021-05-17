@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -91,7 +92,7 @@ public class GuiAgenda extends Application {
 	private VBox crearPanelBotones() {
 		VBox panel = new VBox();
 		panel.setPadding(new Insets(10));
-		panel.setSpacing(10);
+		panel.setSpacing(10); 
 
 
 		txtBuscar = new TextField();
@@ -286,6 +287,9 @@ public class GuiAgenda extends Application {
 		alert.setContentText("Mi agenda de\ncontactos");
 		alert.showAndWait();
 
+		/*DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add(getClass().
+		getResource("/application.css").toExternalForm());*/
 	}
 
 	private void clear() {
