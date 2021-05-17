@@ -85,8 +85,45 @@ public class GuiAgenda extends Application {
 	}
 
 	private VBox crearPanelBotones() {
-		// a completar
 		VBox panel = new VBox();
+		panel.setPadding(new Insets(10));
+		panel.setSpacing(10);
+
+
+		txtBuscar = new TextField();
+		txtBuscar.setMinHeight(40);
+		txtBuscar.setPromptText("Buscar");
+		VBox.setMargin(txtBuscar, new Insets(0,0,40,0));
+
+
+		rbtListarTodo = new RadioButton("Listar toda la agenda");
+		rbtListarTodo.setSelected(true);
+
+		rbtListarSoloNumero = new RadioButton("Listar nº contactos");
+
+		btnListar = new Button("Listar");
+		btnListar.setPrefWidth(250);
+		btnListar.getStyleClass().add("botones");
+		VBox.setMargin(btnListar, new Insets(0,0,40,0));
+
+		btnPersonalesEnLetra = new Button("Contactos personales en letra");
+		btnPersonalesEnLetra.setPrefWidth(250);
+		btnPersonalesEnLetra.getStyleClass().add("botones");
+
+		btnPersonalesOrdenadosPorFecha = new Button("Contactos Personales\nordenaos por fecha");
+		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
+		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
+
+		btnClear = new Button("Clear");
+		btnClear.setPrefWidth(250);
+		btnClear.getStyleClass().add("botones");
+		VBox.setMargin(btnClear, new Insets(40,0,0,0));
+
+		btnSalir= new Button("Salir");
+		btnSalir.setPrefWidth(250);  
+		btnSalir.getStyleClass().add("botones");
+
+		panel.getChildren().addAll(txtBuscar, rbtListarTodo, rbtListarSoloNumero, btnListar, btnPersonalesEnLetra, btnPersonalesOrdenadosPorFecha, btnClear, btnSalir);
 
 		return panel;
 	}
