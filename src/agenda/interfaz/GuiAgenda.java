@@ -218,7 +218,7 @@ public class GuiAgenda extends Application {
 			areaTexto.setText("Importada agenda\n\nLíneas Erroneas: " + errores);
 			
 			itemExportarPersonales.setDisable(false);
-			itemImportar.setDisable(true);
+			itemImportar.setDisable(true); 
 		}
 		
 		
