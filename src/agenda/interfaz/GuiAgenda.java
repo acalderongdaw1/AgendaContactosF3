@@ -126,6 +126,7 @@ public class GuiAgenda extends Application {
 		btnListar.setPrefWidth(250);
 		btnListar.getStyleClass().add("botones");
 		VBox.setMargin(btnListar, new Insets(0,0,40,0));
+		btnListar.setOnAction(e -> listar());
 
 		btnPersonalesEnLetra = new Button("Contactos personales en letra");
 		btnPersonalesEnLetra.setPrefWidth(250);
@@ -135,12 +136,13 @@ public class GuiAgenda extends Application {
 		btnPersonalesOrdenadosPorFecha = new Button("Contactos Personales\nordenaos por fecha");
 		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
+		btnPersonalesOrdenadosPorFecha.setOnAction(e -> personalesOrdenadosPorFecha());
 
 		btnClear = new Button("Clear");
 		btnClear.setPrefWidth(250);
 		btnClear.getStyleClass().add("botones");
 		btnClear.setOnAction(e -> clear());
-		VBox.setMargin(btnClear, new Insets(40,0,0,0));
+		VBox.setMargin(btnClear, new Insets(40,0,0,0));;
 
 		btnSalir= new Button("Salir");
 		btnSalir.setPrefWidth(250);  
@@ -153,7 +155,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private GridPane crearPanelLetras() {
-		// a completar
+
 		GridPane panel = new GridPane();
 		panel.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 		panel.setPadding(new Insets(10));
