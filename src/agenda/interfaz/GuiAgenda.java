@@ -28,6 +28,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -107,6 +108,11 @@ public class GuiAgenda extends Application {
 		txtBuscar.setMinHeight(40);
 		txtBuscar.setPromptText("Buscar");
 		VBox.setMargin(txtBuscar, new Insets(0,0,40,0));
+		txtBuscar.setOnKeyReleased(event -> {
+			if(event.getCode() == KeyCode.ENTER) {
+				buscar();
+			}
+		});
 
 
 		rbtListarTodo = new RadioButton("Listar toda la agenda");
@@ -201,6 +207,7 @@ public class GuiAgenda extends Application {
 		Menu menu2 = new Menu("Operaciones");
 		itemBuscar = new MenuItem("Buscar");
 		itemBuscar.setAccelerator(KeyCombination.keyCombination("Ctrl+B"));
+		itemBuscar.setOnAction(e -> buscar());
 		
 		itemFelicitar = new MenuItem("Felicitar");
 		itemFelicitar.setAccelerator(KeyCombination.keyCombination("Ctrl+F"));
@@ -274,8 +281,31 @@ public class GuiAgenda extends Application {
 
 	private void personalesOrdenadosPorFecha() {
 		clear();
-		// a completar
-
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		}
+		else {
+			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			dialog.setTitle("Selector letra");
+			dialog.setHeaderText(null);
+			dialog.setContentText("Elija letra:");
+			Optional<Character> resul = dialog.showAndWait();
+			if(resul.isPresent()) {
+				if(!agenda.estaLetra(resul.get())) {
+					areaTexto.setText("No hay contactos personales");
+				}
+				else {
+					List<Personal> aux = agenda.personalesOrdenadosPorFechaNacimiento(resul.get());
+					areaTexto.setText("Contactos personales ordenados por fecha de nacimiento\n\n" + resul.get() + "\n\n");
+					for(Personal p : aux) {
+						areaTexto.appendText(p.toString() + "\n");
+					}
+				}
+			}
+			else {
+				dialog.close();
+			}
+		}
 	}
 
 	private void contactosPersonalesEnLetra() {
@@ -353,8 +383,27 @@ public class GuiAgenda extends Application {
 
 	private void buscar() {
 		clear();
-		// a completar
-
+		if (txtBuscar.getText().length() == 0) {
+			areaTexto.setText("El campo buscar esta vacío");
+		}
+		else {
+			if(agenda.totalContactos() == 0) {
+				areaTexto.setText("Importe antes la agenda");
+			}
+			else {
+				List<Contacto> resultado = agenda.buscarContactos(txtBuscar.getText());
+				areaTexto.setText("Contactos en la agenda que contienen" + " ' " + txtBuscar.getText() + " ' \n\n");
+				if (resultado.isEmpty()) {
+					areaTexto.setText("No hay ningun contacto en la agenda que contenga" + " ' " + txtBuscar.getText() + " ' ");
+				}
+				else {
+					for(Contacto c : resultado) {
+						areaTexto.appendText(c.toString() + "\n");
+					}
+					
+				}
+			}
+		}
 		cogerFoco();
 
 	}
