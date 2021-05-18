@@ -67,10 +67,7 @@ public class AgendaContactos {
 	 * Metodo para comprobar si esta o no una letra en la agenda
 	 */
 	public boolean estaLetra(char letra) {
-		if(agenda.containsKey(letra)) {
-			return true;
-		}
-		return false;
+		return agenda.containsKey(letra);
 	}
 	
 	/**
