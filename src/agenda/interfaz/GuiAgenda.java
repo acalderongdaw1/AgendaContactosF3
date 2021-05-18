@@ -3,6 +3,7 @@ package agenda.interfaz;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -62,6 +63,7 @@ public class GuiAgenda extends Application {
 
 	private Button btnClear;
 	private Button btnSalir;
+	
 
 	@Override
 	public void start(Stage stage) {
@@ -285,7 +287,8 @@ public class GuiAgenda extends Application {
 			areaTexto.setText("Importe antes la agenda");
 		}
 		else {
-			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			List<Character> opciones = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A', opciones);
 			dialog.setTitle("Selector letra");
 			dialog.setHeaderText(null);
 			dialog.setContentText("Elija letra:");
@@ -314,7 +317,8 @@ public class GuiAgenda extends Application {
 			areaTexto.setText("Importe antes la agenda");
 		}
 		else {
-			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			List<Character> opciones = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+			ChoiceDialog<Character> dialog = new ChoiceDialog<Character>('A', opciones);
 			dialog.setTitle("Selector de letra");
 			dialog.setHeaderText(null);
 			dialog.setContentText("Elija letra:");
