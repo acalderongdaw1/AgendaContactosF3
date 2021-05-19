@@ -327,10 +327,14 @@ public class GuiAgenda extends Application {
 					areaTexto.setText("No hay contactos personales");
 				} else {
 					List<Personal> aux = agenda.personalesOrdenadosPorFechaNacimiento(resul.get());
-					areaTexto.setText(
-							"Contactos personales ordenados por fecha de nacimiento\n\n" + resul.get() + "\n\n");
-					for (Personal p : aux) {
-						areaTexto.appendText(p.toString() + "\n");
+					if (aux.isEmpty()) {
+						areaTexto.setText("No hay contactos personales");
+					} else {
+						areaTexto.setText(
+								"Contactos personales ordenados por fecha de nacimiento\n\n" + resul.get() + "\n\n");
+						for (Personal p : aux) {
+							areaTexto.appendText(p.toString() + "\n");
+						}
 					}
 				}
 			} else {
@@ -425,11 +429,11 @@ public class GuiAgenda extends Application {
 	 */
 	private void buscar() {
 		clear();
-		if (txtBuscar.getText().length() == 0) {
-			areaTexto.setText("El campo buscar esta vacío");
+		if (agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
 		} else {
-			if (agenda.totalContactos() == 0) {
-				areaTexto.setText("Importe antes la agenda");
+			if (txtBuscar.getText().isBlank()) {
+				areaTexto.setText("El campo buscar esta vacío");
 			} else {
 				List<Contacto> resultado = agenda.buscarContactos(txtBuscar.getText());
 				areaTexto.setText("Contactos en la agenda que contienen" + " ' " + txtBuscar.getText() + " ' \n\n");
