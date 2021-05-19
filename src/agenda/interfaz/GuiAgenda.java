@@ -79,6 +79,7 @@ public class GuiAgenda extends Application {
 
 	/**
 	 * Crea el panel de la interfaz gráfica
+	 * 
 	 * @return BorderPane
 	 */
 	private BorderPane crearGui() {
@@ -88,9 +89,10 @@ public class GuiAgenda extends Application {
 		panel.setCenter(crearPanelPrincipal());
 		return panel;
 	}
-	
+
 	/**
 	 * Crea el panel principal de la interfaz, el area de texto
+	 * 
 	 * @return BorderPane
 	 */
 	private BorderPane crearPanelPrincipal() {
@@ -108,6 +110,7 @@ public class GuiAgenda extends Application {
 
 	/**
 	 * Crea el panel de botones del lateral izquierdo
+	 * 
 	 * @return VBox
 	 */
 	private VBox crearPanelBotones() {
