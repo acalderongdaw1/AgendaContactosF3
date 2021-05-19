@@ -65,6 +65,8 @@ public class AgendaContactos {
 	
 	/**
 	 * Metodo para comprobar si esta o no una letra en la agenda
+	 * @param char letra
+	 * @return boolean
 	 */
 	public boolean estaLetra(char letra) {
 		return agenda.containsKey(letra);
@@ -113,7 +115,7 @@ public class AgendaContactos {
 	/**
 	 * Devuelve un ArrayList con todos los contactos que incluyen 
 	 * el texto ,introducido como parámetro, en su nombre o apellidos.	
-	 * @param texto
+	 * @param String texto
 	 * @return ArrayList<Contacto> 
 	 */
 	public List<Contacto> buscarContactos(String texto) {
@@ -256,6 +258,7 @@ public class AgendaContactos {
 	 * Ordena una ArrayList por fecha de nacimiento, pero solo los que empiezan
 	 * con una letra determinada. Estos se guardan en otra ArrayList y se trabaja
 	 * sobre ella.
+	 * @param char letra
 	 * @return List<Personal> con los contactos personales ordenados
 	 */
 	public List<Personal> personalesOrdenadosPorFechaNacimiento(char letra) {
