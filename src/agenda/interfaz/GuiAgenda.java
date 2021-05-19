@@ -394,7 +394,7 @@ public class GuiAgenda extends Application {
 					areaTexto.appendText(c.toString() + "\n");
 				}
 			} else {
-				areaTexto.setText("No hay contactos");
+				areaTexto.appendText("No hay contactos");
 			}
 		}
 
